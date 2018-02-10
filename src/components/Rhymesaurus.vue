@@ -29,7 +29,7 @@
 </template>
 
 <script>
-// TODO: Import axios properly here.
+import axios from 'axios';
 
 export default {
   name: 'Rhymesaurus',
@@ -40,18 +40,23 @@ export default {
       phrase: '',
       rhyme: ''
     }
+  },
+  methods: {
+    findWords: function() {
+      axios.get('https://api.datamuse.com/words', {
+        params: {
+          ml: this.phrase,
+          rel_rhy: this.rhyme
+        }
+      })
+      .then( response => {
+        this.results = response.data;
+      })
+      .catch( error => {
+        this.errors.push(error);
+      })
+    }
   }
-    // TODO: Create the findWords method.
-
-    // TODO: Complete the following inside of the findWords method.
-      // TODO: Create an axios.get statement that requests from https://api.datamuse.com/words
-      // TODO: Create the params object
-      // TODO: Set the `ml` parameter equal to `this.phrase`
-      // TODO: Set the `rel_ehy` parameter equal to `this.rhyme`
-      // TODO: Create a `then` clause
-      // TODO: Inside the `then` clause, set `this.results` equal to `response.data`
-      // TODO: Create a `catch` clause
-      // TODO: Inside the `catch` clause, push the new `error` onto the `this.errors` array
 }
 </script>
 
