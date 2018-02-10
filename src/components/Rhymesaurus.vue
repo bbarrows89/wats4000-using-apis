@@ -1,10 +1,14 @@
 <template>
   <div class="rhymesaurus">
     <form v-on:submit.prevent="findWords">
-      <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button type="submit">Search</button></p>
+      <p>Find rhymes for 
+        <input type="text" v-model="rhyme"> related to 
+        <input type="text" v-model="phrase"> 
+        <button type="submit">Search</button></p>
     </form>
+
     <ul v-if="results && results.length>0" class="results">
-      <li v-for="item in results" class="item">
+      <li v-for="(item, index) in results" :key="index" class="item">
         <p><strong>{{ item.word }}</strong></p>
         <p>{{ item.score }}</p>
       </li>
@@ -16,7 +20,7 @@
     </div>
 
     <ul v-if="errors.length > 0" class="errors">
-      <li v-for="error in errors">
+      <li v-for="(error, index) in errors" :key="index">
         {{ error.message }}
       </li>
     </ul>
