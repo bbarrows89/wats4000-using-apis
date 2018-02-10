@@ -10,17 +10,14 @@
       </li>
     </ul>
 
-    <!-- TODO: Add a `v-else-if` conditional to make this message only show if there are no results returned (but we have actually attempted a request). -->
     <div v-else-if="results && results.length === 0" class="no-results">
       <h2>No Words Found</h2>
       <p>Please adjust your search to find more words.</p>
     </div>
 
-    <!-- TODO: Add a v-if conditional to make this errors list show only if there are errors and if the length is greater than 0. -->
-    <ul class="errors">
-      <!-- TODO: Add a v-for loop to the LI tag to loop through the errors. -->
-      <li>
-        <!-- TODO: Output each error. -->
+    <ul v-if="errors.length > 0" class="errors">
+      <li v-for="error in errors">
+        {{ error.message }}
       </li>
     </ul>
   </div>
