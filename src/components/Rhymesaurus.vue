@@ -1,19 +1,17 @@
 <template>
   <div class="rhymesaurus">
-    <form><!-- TODO: Use a submit event handler to allow the findWords method to handle this form submission. -->
+    <form v-on:submit.prevent="findWords">
       <p>Find rhymes for <input type="text" v-model="rhyme"> related to <input type="text" v-model="phrase"> <button type="submit">Search</button></p>
     </form>
-    <!-- TODO: Add a v-if conditional to make this results list show only if there are results and if the length is greater than 0. -->
-    <ul class="results">
-      <!-- TODO: Add a v-for loop to the LI tag to loop through the items in the results. -->
-      <li class="item">
-        <p><strong><!-- TODO: Output word --></strong></p>
-        <p><!-- TODO: Output score --></p>
+    <ul v-if="results && results.length>0" class="results">
+      <li v-for="item in results" class="item">
+        <p><strong>{{ item.word }}</strong></p>
+        <p>{{ item.score }}</p>
       </li>
     </ul>
 
     <!-- TODO: Add a `v-else-if` conditional to make this message only show if there are no results returned (but we have actually attempted a request). -->
-    <div class="no-results">
+    <div v-else-if="results && results === 0" class="no-results">
       <h2>No Words Found</h2>
       <p>Please adjust your search to find more words.</p>
     </div>
