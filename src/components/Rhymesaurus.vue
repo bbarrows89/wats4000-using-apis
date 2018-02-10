@@ -11,7 +11,7 @@
     </ul>
 
     <!-- TODO: Add a `v-else-if` conditional to make this message only show if there are no results returned (but we have actually attempted a request). -->
-    <div v-else-if="results && results === 0" class="no-results">
+    <div v-else-if="results && results.length === 0" class="no-results">
       <h2>No Words Found</h2>
       <p>Please adjust your search to find more words.</p>
     </div>
