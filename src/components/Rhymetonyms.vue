@@ -1,5 +1,5 @@
 <template>
-  <div class="rhymesaurus">
+  <div class="rhymetonyms">
     <p>
       <router-link v-bind:to="{ name: 'Rhymetonyms' }">Rhymetonyms</router-link>
       &bull;
@@ -7,8 +7,8 @@
     </p>
     <form v-on:submit.prevent="findWords">
       <p>Find rhymes for 
-        <input type="text" v-model="rhyme"> related to 
-        <input type="text" v-model="phrase"> 
+        <input type="text" v-model="rhyme"> which are antonyms of 
+        <input type="text" v-model="antonym"> 
         <button type="submit">Search</button></p>
     </form>
 
@@ -36,12 +36,12 @@
 import axios from 'axios';
 
 export default {
-  name: 'Rhymesaurus',
+  name: 'Rhymetonyms',
   data () {
     return {
       results: null,
       errors: [],
-      phrase: '',
+      antonym: '',
       rhyme: ''
     }
   },
@@ -49,7 +49,7 @@ export default {
     findWords: function() {
       axios.get('https://api.datamuse.com/words', {
         params: {
-          ml: this.phrase,
+          rel_ant: this.antonym,
           rel_rhy: this.rhyme
         }
       })
@@ -66,7 +66,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.rhymesaurus {
+.rhymetonyms {
   font-size: 1.4rem;
 }
 
