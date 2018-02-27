@@ -48,7 +48,7 @@ export default {
   methods: {
     findWords: function() {
       this.results = null;
-      let queryID = `${this.phrase}-${this.soundsLike}-${this.startLetter}-${this.endLetter}`;
+      let queryID = `${this.phrase}-${this.rhyme}`;
       let cacheExpiry = 24 * 60 * 60 * 1000; // 24 hr cache expiry
       console.log('query ID: ' + queryID);
       let cachedQuery = this.$ls.get(queryID);
