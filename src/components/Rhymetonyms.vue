@@ -68,7 +68,7 @@ export default {
         params: {
           ml: this.phrase,
           rel_rhy: this.rhyme,
-          rel_ant: this.antonym;
+          rel_ant: this.antonym,
           sl: this.soundsLike,
           sp: `${this.startLetter}*${this.endLetter}`
         }
