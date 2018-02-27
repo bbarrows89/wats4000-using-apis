@@ -47,13 +47,34 @@ export default {
   },
   methods: {
     findWords: function() {
+      this.results = null;
+      let queryID = `${this.phrase}-${this.soundsLike}-${this.startLetter}-${this.endLetter}`;
+      let cacheExpiry = 24 * 60 * 60 * 1000; // 24 hr cache expiry
+      console.log('query ID: ' + queryID);
+      let cachedQuery = this.$ls.get(queryID);
+      if (cachedQuery) {
+        console.log('Previous query cache found.');
+        this.results = cachedQuery;
+      } else {
+        console.log('No cache found for: ' + queryID);
+        this.fetchAPIResults();
+      }
+    },
+    fetchAPIResults: function() {
+      this.results = null;
+      let queryID = `${this.phrase}-${this.soundsLike}-${this.startLetter}-${this.endLetter}`;
+      let cacheExpiry = 24 * 60 * 60 * 1000; // 24 hr cache expiry
       axios.get('https://api.datamuse.com/words', {
         params: {
           ml: this.phrase,
-          rel_rhy: this.rhyme
+          rel_rhy: this.rhyme,
+          sl: this.soundsLike,
+          sp: `${this.startLetter}*${this.endLetter}`
         }
       })
       .then( response => {
+        this.$ls.set(queryID, response.data, cacheExpiry);
+        console.log('Cache created for: ' + queryID);
         this.results = response.data;
       })
       .catch( error => {
